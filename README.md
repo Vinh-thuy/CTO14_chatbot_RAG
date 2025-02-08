@@ -218,3 +218,64 @@ N'hésitez pas à ouvrir des issues ou proposer des améliorations !
 ## 📜 Licence
 
 [Spécifiez votre licence]
+
+## 🌐 API Flask avec Swagger
+
+### Fonctionnalités de l'API
+
+#### 1. Génération de Texte `/generate`
+- **Méthode** : POST
+- **Description** : Générer du texte avec le modèle LLM
+- **Paramètres** :
+  - `prompt` (requis) : Texte de départ pour la génération
+
+#### 2. Requête RAG `/rag_query`
+- **Méthode** : POST
+- **Description** : Effectuer une recherche sémantique avec RAG
+- **Paramètres** :
+  - `query` (requis) : Question ou requête pour la recherche
+
+### Démarrage de l'API
+
+1. Installer les dépendances :
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Lancer l'API :
+   ```bash
+   python app.py
+   ```
+
+3. Accéder à la documentation Swagger :
+   - URL : `http://localhost:5000/apidocs/`
+
+### Exemple de Requête cURL
+
+#### Génération de Texte
+```bash
+curl -X POST http://localhost:5000/generate \
+     -H "Content-Type: application/json" \
+     -d '{"prompt": "Explique le machine learning"}'
+```
+
+#### Requête RAG
+```bash
+curl -X POST http://localhost:5000/rag_query \
+     -H "Content-Type: application/json" \
+     -d '{"query": "Qu'est-ce que le RAG ?"}'
+```
+
+### Déploiement
+
+- Serveur de production recommandé : Gunicorn
+- Commande de démarrage :
+  ```bash
+  gunicorn -w 4 -b 0.0.0.0:5000 app:app
+  ```
+
+### Sécurité et Configuration
+
+- Mode debug désactivé en production
+- Configuration CORS si nécessaire
+- Ajout potentiel d'authentification
