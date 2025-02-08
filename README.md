@@ -1,10 +1,37 @@
-# Démonstration de Retrieval-Augmented Generation (RAG) avec LLM
+# LightRAG : Système de Recherche et Génération Augmentée 
 
-## 🚀 Introduction
+## Démarrage Rapide
+
+### Options de Lancement
+
+#### Mode Démo (Sans API)
+```bash
+python '/Users/vinh/Documents/RAG/llm_rag_demo.py'
+```
+- Exécute le système RAG directement
+- Idéal pour les tests rapides
+- Interface en ligne de commande
+
+#### Mode API
+```bash
+python app.py
+```
+- Lance le serveur Flask
+- Expose les endpoints `/generate` et `/rag_query`
+- Documentation Swagger disponible à `/apidocs/`
+- Port par défaut : 5001
+
+### Prérequis Avant de Commencer
+- Python 3.8+
+- Installer les dépendances : `pip install -r requirements.txt`
+
+## Démonstration de Retrieval-Augmented Generation (RAG) avec LLM
+
+## Introduction
 
 Ce projet est une démonstration pratique de Retrieval-Augmented Generation (RAG), une technique innovante qui améliore les capacités des modèles de langage en leur fournissant un contexte supplémentaire lors de la génération de réponses.
 
-## 📘 Concepts Clés
+## Concepts Clés
 
 ### Qu'est-ce que le RAG ?
 Le RAG combine deux technologies puissantes :
@@ -16,7 +43,7 @@ Le RAG combine deux technologies puissantes :
 - **Embeddings** : Transformations vectorielles des documents
 - **Base de Données Vectorielle** : ChromaDB pour le stockage et la recherche sémantique
 
-## 🛠 Fonctionnalités Principales
+## Fonctionnalités Principales
 
 ### 1. Chargement du Modèle LLM
 - Téléchargement du modèle `distilgpt2`
@@ -37,7 +64,7 @@ Le RAG combine deux technologies puissantes :
   1. **Sans Contexte** : Réponse basique du modèle
   2. **Avec RAG** : Réponse enrichie par des informations contextuelles
 
-## 🔍 Workflow Détaillé
+## Workflow Détaillé
 
 1. **Préparation**
    - Charger le modèle de langage
@@ -54,23 +81,23 @@ Le RAG combine deux technologies puissantes :
    - Recherche sémantique des passages pertinents
    - Génération de la réponse avec contexte
 
-## 🔬 Architecture Technique Détaillée
+## Architecture Technique Détaillée
 
-### 1. Système de Logging Personnalisé 🌈
+### 1. Système de Logging Personnalisé 
 
 #### Objectif : Amélioration de la Lisibilité
 - **Codes Couleurs Personnalisés** :
-  - 🟣 Magenta : Chargement du modèle Hugging Face
-  - 🔵 Bleu : Requêtes LLM
-  - 🟢 Vert : Configuration du RAG
-  - 🔷 Cyan : Requêtes RAG
+  - : Chargement du modèle Hugging Face
+  - : Requêtes LLM
+  - : Configuration du RAG
+  - : Requêtes RAG
 
 #### Avantages
 - Distinction visuelle des étapes d'exécution
 - Amélioration du débogage
 - Expérience utilisateur améliorée
 
-### 2. Chargement du Modèle LLM 🤖
+### 2. Chargement du Modèle LLM 
 
 #### Étapes Principales
 1. **Préparation du Cache**
@@ -82,10 +109,10 @@ Le RAG combine deux technologies puissantes :
    - Configuration des tokens spéciaux
    - Logging détaillé :
      ```
-     🤖 Téléchargement du tokenizer...
-     ✅ Tokenizer téléchargé
-     📊 Taille du vocabulaire
-     🏷️ Tokens spéciaux
+     Téléchargement du tokenizer...
+     Tokenizer téléchargé
+     Taille du vocabulaire
+     Tokens spéciaux
      ```
 
 3. **Optimisations du Modèle**
@@ -93,14 +120,14 @@ Le RAG combine deux technologies puissantes :
    - `torch_dtype=torch.float16` : Réduction de précision
    - `low_cpu_mem_usage=True` : Minimisation de l'utilisation CPU
 
-### 3. Génération de Réponse 🔍
+### 3. Génération de Réponse 
 
 #### Stratégies Intelligentes
 - Sélection dynamique du périphérique (CPU/GPU/MPS)
 - Tokenization adaptative
 - Gestion des erreurs de génération
 
-### 4. Extraction de Texte PDF 📄
+### 4. Extraction de Texte PDF 
 
 #### Workflow
 1. Ouverture du fichier PDF
@@ -108,7 +135,7 @@ Le RAG combine deux technologies puissantes :
 3. Concaténation du texte
 4. Gestion robuste des erreurs
 
-### 5. Configuration du Système RAG 🏗️
+### 5. Configuration du Système RAG 
 
 #### Processus d'Indexation
 1. **Préparation du Texte**
@@ -123,7 +150,7 @@ Le RAG combine deux technologies puissantes :
    - Collection ChromaDB
    - Stockage des représentations sémantiques
 
-### 6. Requête RAG Intelligente 🕵️
+### 6. Requête RAG Intelligente 
 
 #### Étapes de Recherche et Génération
 1. Embedding de la requête utilisateur
@@ -131,7 +158,7 @@ Le RAG combine deux technologies puissantes :
 3. Récupération des passages contextuels
 4. Génération de réponse enrichie
 
-### 7. Comparaison Analytique 🔬
+### 7. Comparaison Analytique 
 
 #### Objectif : Évaluation Comparative
 - Comparaison des réponses :
@@ -139,7 +166,7 @@ Le RAG combine deux technologies puissantes :
   2. Avec contexte RAG
 - Mesure de la valeur ajoutée du RAG
 
-### Principes de Conception 🎯
+### Principes de Conception 
 
 #### Approche Technique
 - **Modularité** : Responsabilités uniques par fonction
@@ -147,7 +174,7 @@ Le RAG combine deux technologies puissantes :
 - **Adaptabilité** : Configuration dynamique
 - **Performance** : Optimisation des ressources
 
-### Points Techniques Avancés 🚀
+### Points Techniques Avancés 
 
 - Accélération GPU avec `torch`
 - Gestion dynamique des périphériques
@@ -155,13 +182,13 @@ Le RAG combine deux technologies puissantes :
 - Embeddings sémantiques avancés
 - Recherche contextuelle intelligente
 
-### Limitations Actuelles 🚧
+### Limitations Actuelles 
 
 - Modèle léger (`distilgpt2`)
 - Performances pour tâches complexes
 - Dépendance à la qualité du document source
 
-## 🔮 Perspectives d'Amélioration
+## Perspectives d'Amélioration
 
 1. Intégration de modèles plus performants
 2. Amélioration de la recherche sémantique
@@ -169,7 +196,7 @@ Le RAG combine deux technologies puissantes :
 4. Support multi-documents
 5. Interface utilisateur plus intuitive
 
-## 🌐 Implémentation Technique de l'API Flask
+## Implémentation Technique de l'API Flask
 
 ### Architecture de l'API
 
@@ -191,9 +218,9 @@ Le RAG combine deux technologies puissantes :
    - **Objectif** : Fournir des informations détaillées sur le modèle de langage utilisé
    - **Paramètres** : Aucun
 
-### Format des Requêtes 📋
+### Format des Requêtes 
 
-#### Structure JSON des Endpoints 📋
+#### Structure JSON des Endpoints 
 
 #### 1. Endpoint `/generate`
 
@@ -243,7 +270,7 @@ Le RAG combine deux technologies puissantes :
 }
 ```
 
-### Validation des Requêtes 🛡️
+### Validation des Requêtes 
 
 #### Règles Générales
 - Chaque endpoint attend un JSON valide
@@ -264,7 +291,7 @@ curl -X POST http://localhost:5001/rag_query \
      -d '{"query": "Qu\'est-ce que le RAG ?"}'
 ```
 
-### Gestion des Erreurs 🚨
+### Gestion des Erreurs 
 
 #### Types d'Erreurs Courants
 1. **400 Bad Request** : 
@@ -276,7 +303,7 @@ curl -X POST http://localhost:5001/rag_query \
    - Erreur système
    - Problème de traitement
 
-### Débogage des Requêtes 🔍
+### Débogage des Requêtes 
 
 Si vous rencontrez des problèmes :
 1. Vérifiez le format JSON
@@ -284,7 +311,7 @@ Si vous rencontrez des problèmes :
 3. Utilisez un validateur JSON en ligne
 4. Consultez les logs du serveur pour des détails spécifiques
 
-### Débogage des Requêtes de Génération 🔍
+### Débogage des Requêtes de Génération 
 
 Si vous rencontrez des problèmes :
 1. Vérifiez le format JSON
@@ -292,7 +319,7 @@ Si vous rencontrez des problèmes :
 3. Utilisez un validateur JSON en ligne
 4. Consultez les logs du serveur pour des détails spécifiques
 
-### Gestion des Erreurs et Logging 🚨
+### Gestion des Erreurs et Logging 
 
 #### Principes de Gestion des Erreurs
 - Validation stricte des requêtes
@@ -321,7 +348,7 @@ Si vous rencontrez des problèmes :
    - Codes de statut HTTP appropriés
    - Informations de débogage si nécessaire
 
-### Sécurité et Configuration 🔒
+### Sécurité et Configuration 
 
 #### Bonnes Pratiques
 - Mode debug désactivé en production
@@ -354,7 +381,7 @@ curl -X POST http://localhost:5001/rag_query \
 curl http://localhost:5001/model_info
 ```
 
-### Perspectives d'Amélioration 🚀
+### Perspectives d'Amélioration 
 
 1. Ajout de métriques de performance
 2. Mise en place de la pagination pour les grandes réponses
@@ -362,7 +389,7 @@ curl http://localhost:5001/model_info
 4. Développement de tests unitaires et d'intégration
 5. Mise en place de la surveillance des requêtes
 
-## 💻 Prérequis Techniques
+## Prérequis Techniques
 
 - Python 3.8+
 - Bibliothèques :
@@ -372,7 +399,7 @@ curl http://localhost:5001/model_info
   - `sentence-transformers`
   - `PyPDF2`
 
-## 🚦 Comment Utiliser
+## Comment Utiliser
 
 1. Installez les dépendances :
    ```bash
@@ -386,33 +413,33 @@ curl http://localhost:5001/model_info
    python llm_rag_demo.py
    ```
 
-## 🎓 Pour les Débutants
+## Pour les Débutants
 
 - **Modèle de Langage** : Un "assistant" qui génère du texte
 - **Embedding** : Transformer du texte en "coordonnées" pour la recherche
 - **Sémantique** : Comprendre le sens, pas juste les mots
 
-## 🔬 Points Techniques Avancés
+## Points Techniques Avancés
 
 - Utilisation de `torch` pour l'accélération GPU
 - Gestion dynamique du périphérique (CPU/GPU)
 - Logging coloré pour une meilleure lisibilité
 
-## 🚧 Limitations
+## Limitations
 
 - Modèle léger (`distilgpt2`)
 - Performances limitées pour des tâches complexes
 - Nécessite un bon document source
 
-## 🤝 Contributions
+## Contributions
 
 N'hésitez pas à ouvrir des issues ou proposer des améliorations !
 
-## 📜 Licence
+## Licence
 
 [Spécifiez votre licence]
 
-## 🌐 API Flask avec Swagger
+## API Flask avec Swagger
 
 ### Fonctionnalités de l'API
 
@@ -483,7 +510,7 @@ curl http://localhost:5001/model_info
 - Configuration CORS si nécessaire
 - Ajout potentiel d'authentification
 
-### Optimisation de la Base Vectorielle 🚀
+### Optimisation de la Base Vectorielle 
 
 #### Stratégie d'Initialisation
 - **Initialisation Unique** : La base vectorielle est créée une seule fois au démarrage de l'application
@@ -500,7 +527,7 @@ curl http://localhost:5001/model_info
 - Logs détaillés en cas d'échec
 - Mécanisme de reprise en cas de problème
 
-### Monitoring de la Base Vectorielle 📊
+### Monitoring de la Base Vectorielle 
 
 #### Informations Disponibles
 - Nombre total de segments indexés
@@ -509,22 +536,23 @@ curl http://localhost:5001/model_info
 
 #### Exemple de Log d'Initialisation
 ```
-✅ Modèle d'embedding initialisé
-✅ Collection vectorielle initialisée avec 78 segments
+ Modèle d'embedding initialisé
+ Collection vectorielle initialisée avec 78 segments
 ```
 
-### Perspectives d'Amélioration 🌟
+### Perspectives d'Amélioration 
+
 1. Mise en place d'un mécanisme de rafraîchissement périodique
 2. Ajout de métriques de performance
 3. Implémentation d'un système de cache intelligent
 
-### Compatibilité des Embeddings 🔗
+### Compatibilité des Embeddings 
 
 #### Problématique
 - Changement récent dans l'interface ChromaDB
 - Nécessité d'adapter la fonction d'embedding
 
-#### Solution : Wrapper d'Embedding 🛠️
+#### Solution : Wrapper d'Embedding 
 ```python
 class EmbeddingFunctionWrapper:
     def __init__(self, embedding_model):
@@ -541,7 +569,7 @@ class EmbeddingFunctionWrapper:
 2. **Flexibilité** : Supporte différents modèles d'embedding
 3. **Gestion des Erreurs** : Logging et remontée des exceptions
 
-### Détails Techniques de l'Embedding 📐
+### Détails Techniques de l'Embedding 
 
 #### Modèle Utilisé
 - **Nom** : all-MiniLM-L6-v2
@@ -553,12 +581,13 @@ class EmbeddingFunctionWrapper:
 2. Encodage en vecteurs numériques
 3. Conversion en format compatible ChromaDB
 
-### Optimisations Futures 🚀
+### Optimisations Futures 
+
 1. Support de modèles d'embedding dynamiques
 2. Mise en cache des embeddings
 3. Métriques de performance de l'embedding
 
-### Endpoint d'Informations du Modèle 🔍
+### Endpoint d'Informations du Modèle 
 
 #### `/model_info` - Détails Techniques du Modèle
 
@@ -595,7 +624,8 @@ Fournit des informations détaillées sur le modèle de langage utilisé.
 curl http://localhost:5001/model_info
 ```
 
-### Interprétation des Résultats 📊
+### Interprétation des Résultats 
+
 - **Paramètres** : Nombre de poids ajustables
 - **Taille** : Estimation de l'empreinte mémoire
 - **Périphérique** : Matériel d'exécution
