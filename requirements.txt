@@ -1,9 +1,30 @@
+# Modèles et ML
 torch==2.6.0
 transformers==4.38.2
-chromadb==0.4.23
 sentence-transformers==2.5.1
+bitsandbytes==0.41.3
+accelerate==0.27.1
+
+# Traitement de données
+numpy==1.26.4
+scipy==1.15.1
+scikit-learn==1.6.1
+
+# Traitement PDF et texte
 PyPDF2==3.0.1
+langchain==0.1.5
+
+# Base de données vectorielle
+chromadb==0.4.23
+
+# Logging
 colorlog==6.8.2
-flask
-flasgger
-gunicorn
+
+# API Web
+flask==3.0.2
+flasgger==0.9.7.1
+gunicorn==21.2.0
+
+# Utilitaires
+python-dotenv==1.0.0
+huggingface_hub==0.21.2

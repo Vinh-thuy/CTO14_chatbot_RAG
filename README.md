@@ -169,6 +169,199 @@ Le RAG combine deux technologies puissantes :
 4. Support multi-documents
 5. Interface utilisateur plus intuitive
 
+## 🌐 Implémentation Technique de l'API Flask
+
+### Architecture de l'API
+
+#### Endpoints Principaux
+1. **`/generate`** : Génération de texte
+   - **Méthode** : POST
+   - **Objectif** : Générer du texte avec le modèle LLM
+   - **Paramètres** :
+     - `prompt` (requis) : Texte de départ pour la génération
+
+2. **`/rag_query`** : Recherche Sémantique RAG
+   - **Méthode** : POST
+   - **Objectif** : Effectuer une recherche sémantique contextuelle
+   - **Paramètres** :
+     - `query` (requis) : Question ou requête pour la recherche
+
+3. **`/model_info`** : Informations du Modèle
+   - **Méthode** : GET
+   - **Objectif** : Fournir des informations détaillées sur le modèle de langage utilisé
+   - **Paramètres** : Aucun
+
+### Format des Requêtes 📋
+
+#### Structure JSON des Endpoints 📋
+
+#### 1. Endpoint `/generate`
+
+##### JSON d'Entrée
+```json
+{
+  "prompt": "Votre texte de départ pour la génération"
+}
+```
+
+##### JSON de Réponse (Succès)
+```json
+{
+  "response": "Texte généré par le modèle LLM",
+  "prompt": "Votre texte de départ"
+}
+```
+
+##### JSON de Réponse (Erreur)
+```json
+{
+  "error": "Message décrivant l'erreur"
+}
+```
+
+#### 2. Endpoint `/rag_query`
+
+##### JSON d'Entrée
+```json
+{
+  "query": "Votre question ou requête sémantique"
+}
+```
+
+##### JSON de Réponse (Succès)
+```json
+{
+  "rag_response": "Réponse générée par le système RAG",
+  "query": "Votre question originale"
+}
+```
+
+##### JSON de Réponse (Erreur)
+```json
+{
+  "error": "Message décrivant l'erreur"
+}
+```
+
+### Validation des Requêtes 🛡️
+
+#### Règles Générales
+- Chaque endpoint attend un JSON valide
+- Le champ requis doit être non vide
+- Le Content-Type doit être `application/json`
+
+#### Exemples de Requêtes Valides
+
+```bash
+# Génération de texte
+curl -X POST http://localhost:5001/generate \
+     -H "Content-Type: application/json" \
+     -d '{"prompt": "Explique l\'intelligence artificielle"}'
+
+# Requête RAG
+curl -X POST http://localhost:5001/rag_query \
+     -H "Content-Type: application/json" \
+     -d '{"query": "Qu\'est-ce que le RAG ?"}'
+```
+
+### Gestion des Erreurs 🚨
+
+#### Types d'Erreurs Courants
+1. **400 Bad Request** : 
+   - JSON invalide
+   - Champ requis manquant
+   - Champ vide
+2. **500 Internal Server Error** :
+   - Modèle non initialisé
+   - Erreur système
+   - Problème de traitement
+
+### Débogage des Requêtes 🔍
+
+Si vous rencontrez des problèmes :
+1. Vérifiez le format JSON
+2. Assurez-vous que le champ `query` ou `prompt` est présent et non vide
+3. Utilisez un validateur JSON en ligne
+4. Consultez les logs du serveur pour des détails spécifiques
+
+### Débogage des Requêtes de Génération 🔍
+
+Si vous rencontrez des problèmes :
+1. Vérifiez le format JSON
+2. Assurez-vous que le champ `prompt` est présent et non vide
+3. Utilisez un validateur JSON en ligne
+4. Consultez les logs du serveur pour des détails spécifiques
+
+### Gestion des Erreurs et Logging 🚨
+
+#### Principes de Gestion des Erreurs
+- Validation stricte des requêtes
+- Messages d'erreur détaillés
+- Logging complet des événements
+
+#### Types de Validation
+- Vérification de l'initialisation des modèles
+- Contrôle de la présence et du format des paramètres
+- Gestion des exceptions durant le traitement
+
+### Exemple de Workflow de Requête
+
+1. **Validation de la Requête**
+   - Vérification de l'existence du modèle
+   - Validation des paramètres d'entrée
+   - Logging de la requête reçue
+
+2. **Traitement**
+   - Génération de réponse ou recherche sémantique
+   - Capture des erreurs potentielles
+   - Logging du résultat
+
+3. **Réponse**
+   - Retour JSON structuré
+   - Codes de statut HTTP appropriés
+   - Informations de débogage si nécessaire
+
+### Sécurité et Configuration 🔒
+
+#### Bonnes Pratiques
+- Mode debug désactivé en production
+- Potential configuration CORS
+- Préparation pour l'ajout d'authentification
+
+#### Déploiement
+- Serveur recommandé : Gunicorn
+- Configuration multi-workers
+- Binding sur toutes les interfaces réseau
+
+### Exemples Avancés
+
+#### Requête de Génération
+```bash
+curl -X POST http://localhost:5001/generate \
+     -H "Content-Type: application/json" \
+     -d '{"prompt": "Explique le machine learning"}'
+```
+
+#### Requête RAG
+```bash
+curl -X POST http://localhost:5001/rag_query \
+     -H "Content-Type: application/json" \
+     -d '{"query": "Qu\'est-ce que le RAG ?"}'
+```
+
+#### Requête d'Informations du Modèle
+```bash
+curl http://localhost:5001/model_info
+```
+
+### Perspectives d'Amélioration 🚀
+
+1. Ajout de métriques de performance
+2. Mise en place de la pagination pour les grandes réponses
+3. Intégration de mécanismes de cache
+4. Développement de tests unitaires et d'intégration
+5. Mise en place de la surveillance des requêtes
+
 ## 💻 Prérequis Techniques
 
 - Python 3.8+
@@ -235,6 +428,11 @@ N'hésitez pas à ouvrir des issues ou proposer des améliorations !
 - **Paramètres** :
   - `query` (requis) : Question ou requête pour la recherche
 
+#### 3. Informations du Modèle `/model_info`
+- **Méthode** : GET
+- **Description** : Fournir des informations détaillées sur le modèle de langage utilisé
+- **Paramètres** : Aucun
+
 ### Démarrage de l'API
 
 1. Installer les dépendances :
@@ -248,22 +446,27 @@ N'hésitez pas à ouvrir des issues ou proposer des améliorations !
    ```
 
 3. Accéder à la documentation Swagger :
-   - URL : `http://localhost:5000/apidocs/`
+   - URL : `http://localhost:5001/apidocs/`
 
 ### Exemple de Requête cURL
 
 #### Génération de Texte
 ```bash
-curl -X POST http://localhost:5000/generate \
+curl -X POST http://localhost:5001/generate \
      -H "Content-Type: application/json" \
      -d '{"prompt": "Explique le machine learning"}'
 ```
 
 #### Requête RAG
 ```bash
-curl -X POST http://localhost:5000/rag_query \
+curl -X POST http://localhost:5001/rag_query \
      -H "Content-Type: application/json" \
-     -d '{"query": "Qu'est-ce que le RAG ?"}'
+     -d '{"query": "Qu\'est-ce que le RAG ?"}'
+```
+
+#### Requête d'Informations du Modèle
+```bash
+curl http://localhost:5001/model_info
 ```
 
 ### Déploiement
@@ -271,7 +474,7 @@ curl -X POST http://localhost:5000/rag_query \
 - Serveur de production recommandé : Gunicorn
 - Commande de démarrage :
   ```bash
-  gunicorn -w 4 -b 0.0.0.0:5000 app:app
+  gunicorn -w 4 -b 0.0.0.0:5001 app:app
   ```
 
 ### Sécurité et Configuration
@@ -279,3 +482,120 @@ curl -X POST http://localhost:5000/rag_query \
 - Mode debug désactivé en production
 - Configuration CORS si nécessaire
 - Ajout potentiel d'authentification
+
+### Optimisation de la Base Vectorielle 🚀
+
+#### Stratégie d'Initialisation
+- **Initialisation Unique** : La base vectorielle est créée une seule fois au démarrage de l'application
+- **Persistance** : Stockage dans un répertoire local `./vectorstore`
+- **Réutilisation** : La même collection est utilisée pour toutes les requêtes RAG
+
+#### Avantages
+1. **Performance Améliorée** : Évite la reconstruction à chaque requête
+2. **Économie de Ressources** : Minimise la charge CPU et mémoire
+3. **Cohérence** : Maintient un contexte constant entre les requêtes
+
+#### Gestion des Erreurs
+- Vérification de l'initialisation avant chaque requête
+- Logs détaillés en cas d'échec
+- Mécanisme de reprise en cas de problème
+
+### Monitoring de la Base Vectorielle 📊
+
+#### Informations Disponibles
+- Nombre total de segments indexés
+- Chemin de stockage
+- Modèle d'embedding utilisé
+
+#### Exemple de Log d'Initialisation
+```
+✅ Modèle d'embedding initialisé
+✅ Collection vectorielle initialisée avec 78 segments
+```
+
+### Perspectives d'Amélioration 🌟
+1. Mise en place d'un mécanisme de rafraîchissement périodique
+2. Ajout de métriques de performance
+3. Implémentation d'un système de cache intelligent
+
+### Compatibilité des Embeddings 🔗
+
+#### Problématique
+- Changement récent dans l'interface ChromaDB
+- Nécessité d'adapter la fonction d'embedding
+
+#### Solution : Wrapper d'Embedding 🛠️
+```python
+class EmbeddingFunctionWrapper:
+    def __init__(self, embedding_model):
+        self.embedding_model = embedding_model
+    
+    def __call__(self, input):
+        # Conversion des embeddings pour ChromaDB
+        embeddings = self.embedding_model.encode(input)
+        return embeddings.tolist()
+```
+
+#### Avantages du Wrapper
+1. **Compatibilité** : Interface standardisée avec ChromaDB
+2. **Flexibilité** : Supporte différents modèles d'embedding
+3. **Gestion des Erreurs** : Logging et remontée des exceptions
+
+### Détails Techniques de l'Embedding 📐
+
+#### Modèle Utilisé
+- **Nom** : all-MiniLM-L6-v2
+- **Type** : Sentence Transformer
+- **Dimensionnalité** : 384 dimensions
+
+#### Processus d'Embedding
+1. Réception d'une liste de textes
+2. Encodage en vecteurs numériques
+3. Conversion en format compatible ChromaDB
+
+### Optimisations Futures 🚀
+1. Support de modèles d'embedding dynamiques
+2. Mise en cache des embeddings
+3. Métriques de performance de l'embedding
+
+### Endpoint d'Informations du Modèle 🔍
+
+#### `/model_info` - Détails Techniques du Modèle
+
+##### Description
+Fournit des informations détaillées sur le modèle de langage utilisé.
+
+##### Exemple de Réponse
+```json
+{
+  "model_name": "gpt2",
+  "model_size": {
+    "total_parameters": 124_000_000,
+    "trainable_parameters": 124_000_000,
+    "estimated_size_mb": 480.47,
+    "device": "mps"
+  }
+}
+```
+
+##### Informations Retournées
+- **Nom du Modèle** : Type de modèle utilisé
+- **Nombre Total de Paramètres**
+- **Paramètres Entraînables**
+- **Taille Estimée** (en Mo)
+- **Périphérique** (CPU, GPU, MPS)
+
+#### Cas d'Usage
+- Diagnostic de configuration
+- Monitoring des ressources
+- Compréhension des capacités du modèle
+
+### Exemple de Requête
+```bash
+curl http://localhost:5001/model_info
+```
+
+### Interprétation des Résultats 📊
+- **Paramètres** : Nombre de poids ajustables
+- **Taille** : Estimation de l'empreinte mémoire
+- **Périphérique** : Matériel d'exécution
